@@ -24,7 +24,7 @@ const Galeria = () => {
     <>
       <h1 className='text-center text-3xl my-10'>Fotos Intergalacticas</h1> 
       <section className='container max-w-5xl mx-auto'>
-          <div className="mx-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="mx-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {photoList.map((item) => (
               <PhotoItem 
                 key={item.id}
