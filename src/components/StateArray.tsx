@@ -39,7 +39,7 @@ const StateArray = () => {
         <input 
           type="text"
           placeholder="O que deseja fazer ?"
-          className="flex-1 border border-black p-3 text-2xl p-3 text-black rounded-md mr-3"
+          className="flex-1 border border-black text-2xl p-3 text-black rounded-md mr-3"
           value={itemInput}
           onChange={e => setItemInput(e.target.value)}
         />
