@@ -1,19 +1,14 @@
-import { SubmitHandler, useForm } from "react-hook-form"
-
-type Inputs = {
-  name: string;
-  lastName: string;
-  age: number;
-}
+import { SubmitHandler, useForm } from "react-hook-form";
+import { SignUpForm } from "./types/SignUpForm";
+import InputReactHookForm from "./components/InputReactHookForm";
 
 const Page = () => {
   const {
+    control,
     handleSubmit,
-    register,
-    formState: { errors }
-  } = useForm<Inputs>();
+  } = useForm<SignUpForm>();
 
-  const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
+  const handleFormSubmit: SubmitHandler<SignUpForm> = (data) => {
     console.log(data)
   }
 
@@ -22,32 +17,22 @@ const Page = () => {
       <div className="container mx-auto">
         <form onSubmit={handleSubmit(handleFormSubmit)}>
 
-          <input
-            {...register('name', { required: true, minLength: 2, maxLength: 20 })}
-            className="border border-white p-3 text-black"
-            placeholder="Digite seu nome"
+          <InputReactHookForm
+            control={control}
+            name="name"
+            rules={{ required: true, minLength: 2, maxLength: 20 }}
           />
 
-          {errors.name?.type === 'required' && <p>Item obrigatório</p>}
-          {errors.name?.type === 'minLength' && <p>Precisa ter dois caracteres</p>}
-          {errors.name?.type === 'maxLength' && <p>Precisa ter no máximo vinte caracteres</p>}
-
-          <input
-            {...register('lastName')}
-            className="block mt-4 border border-white p-3 text-black"
-            placeholder="Digite seu sobrenome"
+          <InputReactHookForm
+            control={control}
+            name="lastName"
           />
 
-          <input
-            type="number"
-            {...register('age', { required: 'Campo idade obrigatório', min: 18, max: 120 })}
-            className="block mt-4 border border-white p-3 text-black"
-            placeholder="Digite sua idade"
+          <InputReactHookForm
+            control={control}
+            name="age"
+            rules={{ required: true, min: 18, max: 120 }}
           />
-
-          {errors.age && <p>{ errors.age.message }</p>}
-          {errors.age?.type === 'min' && <p>Precisa ser maior de 18 anos</p>}
-          {errors.name?.type === 'max' && <p>Pode ter no máximo 120 anos</p>}
 
           <input type="submit" value="Enviar" />
 
