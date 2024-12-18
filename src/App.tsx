@@ -1,50 +1,42 @@
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { SignUpForm } from "./types/SignUpForm";
-import { Input } from "@mui/material";
+import { Form, useForm } from "react-hook-form"
+
 
 const Page = () => {
-  const {
-    control,
-    handleSubmit,
-  } = useForm<SignUpForm>();
+  const { register, control } = useForm();
 
-  const handleFormSubmit: SubmitHandler<SignUpForm> = (data) => {
-    console.log(data)
+  const handleSucess = () => {
+    alert('Deu tudo certo')
+  }
+
+  const handleError = () => {
+    alert('Deu erro')
   }
 
   return (
     <>
       <div className="container mx-auto">
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-
-          <Controller
-            control={control}
-            name="name"
-            rules={{ required: true, minLength: 2, maxLength: 20 }}
-            render={({ field, fieldState }) =>
-              <Input
-                {...field}
-                placeholder="Digite seu nome"
-              />
-            }
+        <Form
+          control={control}
+          action={'https://jsonplaceholder.typicode.com/posts'}
+          onSuccess={handleSucess}
+          onError={handleError}
+        >
+          <input
+            {...register('title', { required: true })}
+            className="mr-3 border border-white p-3 text-black"
           />
-
-          <Controller
-            control={control}
-            name="lastName"
-            render={({ field }) => <Input {...field} placeholder="Digite seu sobrenome" />}
+          <input
+            {...register('body',
+              { required: true })}
+            className="mr-3 border border-white p-3 text-black"
           />
-
-          <Controller
-            control={control}
-            name="name"
-            rules={{ required: true, min: 18}}
-            render={({ field }) => <Input {...field} placeholder="Digite sua idade" />}
+          <input
+            {...register('userId',
+              { required: true })}
+            className="border border-white p-3 text-black"
           />
-
-          <input type="submit" value="Enviar" />
-
-        </form>
+          <button>Enviar</button>
+        </Form>
       </div>
     </>
   )
