@@ -1,42 +1,23 @@
-import { Form, useForm } from "react-hook-form"
-
+import { z } from 'zod';
 
 const Page = () => {
-  const { register, control } = useForm();
 
-  const handleSucess = () => {
-    alert('Deu tudo certo')
+  type signUpForm = {
+    name: string;
+    lastName: string;
+    age: number;
   }
 
-  const handleError = () => {
-    alert('Deu erro')
-  }
+  const signUpForm = z.object({
+    name: z.string().min(2).max(20),
+    lastname: z.string().min(2).optional(),
+    age: z.number().min(18)
+  });
 
   return (
     <>
       <div className="container mx-auto">
-        <Form
-          control={control}
-          action={'https://jsonplaceholder.typicode.com/posts'}
-          onSuccess={handleSucess}
-          onError={handleError}
-        >
-          <input
-            {...register('title', { required: true })}
-            className="mr-3 border border-white p-3 text-black"
-          />
-          <input
-            {...register('body',
-              { required: true })}
-            className="mr-3 border border-white p-3 text-black"
-          />
-          <input
-            {...register('userId',
-              { required: true })}
-            className="border border-white p-3 text-black"
-          />
-          <button>Enviar</button>
-        </Form>
+
       </div>
     </>
   )
